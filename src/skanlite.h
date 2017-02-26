@@ -2,6 +2,7 @@
  *
  * Copyright (C) 2007-2012 by Kåre Särs <kare.sars@iki .fi>
  * Copyright (C) 2014 by Gregor Mitsch: port to KDE5 frameworks
+ * Copyright (C) 2017 by Alexander Trufanov: D-Bus interface
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -31,6 +32,7 @@
 
 #include "ui_settings.h"
 #include "ImageViewer.h"
+#include "DBusInterface.h"
 
 class SaveLocation;
 class KAboutData;
@@ -56,7 +58,13 @@ private:
     void doSaveImage(bool askFilename = true);
     void loadScannerOptions();
 
-private Q_SLOTS:
+    void readScannerOptions(const QString groupName, QMap <QString, QString> &opts);
+    void writeScannerOptions(const QString groupName, const QMap <QString, QString> &opts);
+    QStringList serializeScannerOptions(QMap<QString, QString> &opts);
+    void deserializeScannerOptions(QStringList settings, QMap<QString, QString> &opts);
+
+
+public Q_SLOTS:
     void showSettingsDialog();
     void getDir();
     void imageReady(QByteArray &, int, int, int, int);
@@ -65,7 +73,7 @@ private Q_SLOTS:
     void saveWindowSize();
 
     void saveScannerOptions();
-    void defaultScannerOptions();
+    void resetToDefaultScannerOptions();
 
     void availableDevices(const QList<KSaneWidget::DeviceInfo> &deviceList);
 
@@ -74,12 +82,19 @@ private Q_SLOTS:
 
     void showHelp();
 
-protected:
-    void closeEvent(QCloseEvent *event);
+    // for D-Bus interface
+    void sendCurrentScannerOptions();
+    void sendDefaultScannerOptions();
+    void saveScannerOptionsToProfile(QStringList options, QString profile);
+    void switchToProfile(QString profile);
+    void sendDeviceName();
 
+protected:
+    void closeEvent(QCloseEvent *event);   
+
+public: KSaneWidget             *m_ksanew = nullptr;
 private:
-    KAboutData              *m_aboutData;
-    KSaneWidget             *m_ksanew = nullptr;
+    KAboutData              *m_aboutData;    
     Ui::SkanliteSettings     m_settingsUi;
     QDialog                 *m_settingsDialog = nullptr;
     QDialog                 *m_showImgDialog = nullptr;
@@ -96,6 +111,7 @@ private:
     int                      m_format;
 
     ImageViewer              m_imageViewer;
+    DBusInterface            m_dbusInterface;
     QStringList              m_filterList;
     QStringList              m_filter16BitList;
     QStringList              m_typeList;
