@@ -73,11 +73,13 @@ later but D-Bus based script is more flexible.
 
 ## What is done?
 
-1. **hotkey to start/cancel scanning** - done, needs testing/documenting. 
+1. **Keyboard hotkeys to start/cancel scanning**
 
-2. **hotkeys to switch between different scanner's settings profiles** - done, needs testing/documenting. A skanlite.khotkeys file is added. 
-It could be imported into KHotkeys on KDE to automatically predefine hotkeys for two tasks above.  
+2. **Keyboard hotkeys to switch between different scanner's settings profiles**
+Two above could be imported into Plasma's KHotKeys to automatically predefine hotkeys for two tasks above. Settings file is in hotkeys_and_scripts.
 
-3. **script for endless scanning without UI interaction** - D-Bus interface implemented. Script to be done.  
+3. **script for endless scanning without UI interaction**
 
-4. **HW Buttons support** - D-Bus interface implemented. Script to be done.
+4. **HW Buttons support** One more time - if only your device driver works as expected.
+
+5. **some minor UI bugfixes** - fixed directory selection dialog, file naming in case of empty prefix.
