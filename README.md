@@ -73,13 +73,18 @@ later but D-Bus based script is more flexible.
 
 ## What is done?
 
-1. **Keyboard hotkeys to start/cancel scanning**
+* **Keyboard hotkeys to start/cancel scanning**
 
-2. **Keyboard hotkeys to switch between different scanner's settings profiles**
+* **Keyboard hotkeys to switch between different scanner's settings profiles**  
+
 Two above could be imported into Plasma's KHotKeys to automatically predefine hotkeys for two tasks above. Settings file is in hotkeys_and_scripts.
 
-3. **script for endless scanning without UI interaction**
+* **script for endless scanning without UI interaction**
 
-4. **HW Buttons support** One more time - if only your device driver works as expected.
+* **script for HW Buttons support**  
 
-5. **some minor UI bugfixes** - fixed directory selection dialog, file naming in case of empty prefix.
+One more time - if only your device driver works as expected. Technically it can be done without D-Bus and scripts, but I'm ok with current approach.
+
+* **some minor UI bugfixes**  
+
+Fixed directory selection dialog, file naming in case of empty prefix.
